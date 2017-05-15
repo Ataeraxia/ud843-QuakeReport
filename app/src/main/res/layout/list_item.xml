@@ -1,6 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:padding="8dp"
     android:layout_height="match_parent">
+
+    <!-- MAG SUBHEADING -->
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_margin="8dp"
+        android:textColor="#575757"
+        android:textSize="16sp"
+        tools:text="8.5"
+        android:id="@+id/mag_text_view"
+        />
+
+    <!-- PLACE SUBHEADING -->
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textColor="#575757"
+        android:layout_margin="8dp"
+        android:textSize="16sp"
+        tools:text="San Fransisco"
+        android:id="@+id/place_text_view"
+        />
+
+    <!-- DATE SUBHEADING -->
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textColor="#575757"
+        android:layout_margin="8dp"
+        android:textSize="16sp"
+        tools:text="Jan 11, 1989"
+        android:id="@+id/date_text_view"
+        />
+
+
 
 </LinearLayout>

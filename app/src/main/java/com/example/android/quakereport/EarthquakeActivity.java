@@ -17,7 +17,6 @@ package com.example.android.quakereport;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -45,8 +44,8 @@ public class EarthquakeActivity extends AppCompatActivity {
         ListView earthquakeListView = (ListView) findViewById(R.id.list);
 
         // Create a new {@link ArrayAdapter} of earthquakes
-        QuakeAdapter<Quakes> adapter = new QuakeAdapter<Quakes>(
-                this, android.R.layout.simple_list_item_1, earthquakes);
+        QuakeAdapter adapter = new QuakeAdapter(
+                this, earthquakes);
 
         // Set the adapter on the {@link ListView}
         // so the list can be populated in the user interface

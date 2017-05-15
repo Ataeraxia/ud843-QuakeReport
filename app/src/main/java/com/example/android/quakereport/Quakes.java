@@ -1,6 +1,8 @@
+package com.example.android.quakereport;
+
 /**
  * Created by Jessica on 2017-05-12.
- * Quakes is a class that stores the magnitude, location and date of an earthquake.
+ * com.example.android.quakereport.Quakes is a class that stores the magnitude, location and date of an earthquake.
  */
 
 public class Quakes {
@@ -25,7 +27,7 @@ public class Quakes {
      */
 
     /**
-     * Constructor for the Quakes class.
+     * Constructor for the com.example.android.quakereport.Quakes class.
      * Requires @param mag to assign a magnitude,
      * @param place to assign where the earthquake took place,
      * and @param date to assign the day that the earthquake took place.
