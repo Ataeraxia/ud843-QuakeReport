@@ -79,29 +79,46 @@ public class QuakeAdapter extends ArrayAdapter<Quakes> {
         String quakeTimeFormatted = formatTime(quakeDate);
 
         // TODO: Place and near formatting
-        // if String place contains "of" { -find the index of "of" (ie if "of" is found in characters
-        //                                  8 and 9, the index should be 9)
-        //                                 -take indexes 0 tp (i) and set them to a String variable,
-        //                                  quakeNearString
-        //                                 -take indexes (i++) to (last index) and set them to
-        //                                  a different String variable, quakePlaceString }
 
         // Get the raw description of where the quake took place
         String rawPlaceString = currentQuakes.getmPlace();
         // Use this String to determine whether there is a "near" description
         String lookForOf = "of";
+        // Declare nearSubString and placeSubString here so we can access them
+        String nearSubString;
+        String placeSubString;
 
         // Record whether there is a "near" description in the raw place String
         Boolean placeContainsOf = rawPlaceString.contains(lookForOf);
 
         //
         if (placeContainsOf) {
-            int endOfNear = rawPlaceString.indexOf(lookForOf) + 1;
+            // Get the length of the near description
+            int endOfNear = rawPlaceString.indexOf(lookForOf) + 2;
+            // Get the length of the rawPlaceString
+            int endOfRaw = rawPlaceString.length();
+            // Log the length so we know we're doing it right
             Log.v("QuakeAdapter", "Index: " + endOfNear);
+
+            // Set nearSubString to the near data
+            nearSubString = rawPlaceString.substring(0, endOfNear);
+            // Make sure we're doing it right
+            Log.v("QuakeAdapter", "Near: " + nearSubString);
+
+            // Set placeSubString to the place data
+            placeSubString = rawPlaceString.substring(endOfNear + 1, endOfRaw);
+            // Make sure we're doing it right
+            Log.v("QuakeAdapter", "Location: " + placeSubString);
         }
 
         // else { set quakeNearString to "Near the" and quakePlaceString to getmPlace() }
 
+        else {
+            nearSubString = "Near the";
+            placeSubString = rawPlaceString;
+        }
+
+        
         /*
                 SETTING TEXTVIEWS
          */
