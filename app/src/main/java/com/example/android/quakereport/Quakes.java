@@ -19,7 +19,7 @@ public class Quakes {
     private String mPlace;
 
     // The date in format MonthAbbreviation day, year
-    private String mDate;
+    private Long mDate;
 
 
     /*
@@ -32,7 +32,7 @@ public class Quakes {
      * @param place to assign where the earthquake took place,
      * and @param date to assign the day that the earthquake took place.
      */
-    public Quakes(String mag, String place, String date) {
+    public Quakes(String mag, String place, Long date) {
         mMag = mag;
         mPlace = place;
         mDate = date;
@@ -56,6 +56,6 @@ public class Quakes {
     /**
      *  Gets the date that the earthquake took place.
      */
-    public String getmDate() { return mDate; }
+    public Long getmDate() { return mDate; }
 
 }

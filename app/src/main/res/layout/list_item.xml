@@ -18,6 +18,18 @@
         android:id="@+id/mag_text_view"
         />
 
+    <!-- NEAR SUBHEADING -->
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textColor="#575757"
+        android:layout_margin="8dp"
+        android:textSize="16sp"
+        tools:text="12K N of"
+        android:id="@+id/near_text_view"
+        />
+
     <!-- PLACE SUBHEADING -->
     <TextView
         android:layout_width="0dp"
@@ -40,6 +52,18 @@
         android:textSize="16sp"
         tools:text="Jan 11, 1989"
         android:id="@+id/date_text_view"
+        />
+
+    <!-- TIME SUBHEADING -->
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textColor="#575757"
+        android:layout_margin="8dp"
+        android:textSize="16sp"
+        tools:text="10:38pm"
+        android:id="@+id/time_text_view"
         />
 
 
