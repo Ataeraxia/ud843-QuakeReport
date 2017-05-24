@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -52,7 +53,7 @@ public class QuakeAdapter extends ArrayAdapter<Quakes> {
          */
 
         // Log that parent is not null
-        Log.d("QuakeAdapter", "ViewGroup parent: " + parent.toString() + "SUPERCAT");
+        Log.d("QuakeAdapter", "ViewGroup parent: " + parent.toString() + " SUPERCAT");
 
         // Check if an existing view is being reused, otherwise inflate the view
         View listItemView = convertView;
@@ -69,16 +70,29 @@ public class QuakeAdapter extends ArrayAdapter<Quakes> {
                 FORMATTING
          */
 
+        // Magnitude formatting
+
+        // Create a new DecimalFormatter that will format the magnitude
+        DecimalFormat decFormat = new DecimalFormat("0.0");
+        // Create a Double variable that will be formatted by the formatter
+        Double doubMag = currentQuakes.getmMag();
+        // Log the Double for bug testing
+        Log.d("QuakeAdapter", "Double doubMag: " + doubMag + " SUPERCAT");
+        // Create a String variable that will hold the formatted Double variable
+        String formatMag = decFormat.format(doubMag);
+
         // Date and time formatting
 
         // Make a new Date object named quakeDate with the value found in the current Quakes mDate variable.
         Date quakeDate = new Date(currentQuakes.getmDate());
+        // Log quakeDate for ease of debugging
+        Log.d("QuakeAdapter", "Date object quakeDate: " + quakeDate.toString() + " SUPERCAT");
         // Format quakeDate as instructed in the formatDate() method.
         String quakeDateFormatted = formatDate(quakeDate);
         // Format quakeDate as instructed in the formatTime() method.
         String quakeTimeFormatted = formatTime(quakeDate);
 
-        // TODO: Place and near formatting
+        // Place and near formatting
 
         // Get the raw description of where the quake took place
         String rawPlaceString = currentQuakes.getmPlace();
@@ -91,7 +105,6 @@ public class QuakeAdapter extends ArrayAdapter<Quakes> {
         // Record whether there is a "near" description in the raw place String
         Boolean placeContainsOf = rawPlaceString.contains(lookForOf);
 
-        //
         if (placeContainsOf) {
             // Get the length of the near description
             int endOfNear = rawPlaceString.indexOf(lookForOf) + 2;
@@ -129,7 +142,7 @@ public class QuakeAdapter extends ArrayAdapter<Quakes> {
         TextView magTextView = (TextView) listItemView.findViewById(R.id.mag_text_view);
         // Get the magnitude of the earthquake from the currentQuakes object and set this text on
         // the mag TextView.
-        magTextView.setText(currentQuakes.getmMag());
+        magTextView.setText(formatMag);
         // Log that getmMag did not return null
         Log.d("QuakeAdapter", "magTextView: " + magTextView.toString() + "SUPERCAT");
 
@@ -195,6 +208,8 @@ public class QuakeAdapter extends ArrayAdapter<Quakes> {
         SimpleDateFormat dateFormatter = new SimpleDateFormat("h:mm a", Locale.CANADA);
         return dateFormatter.format(pQuakeTime);
     }
+
+    // Create a DecimalFormatter.
 
 
 }

@@ -13,7 +13,7 @@ public class Quakes {
 
     // The magnitude of the earthquake (must be a String since we haven't learnt floats
     //     and it is a decimal)
-    private String mMag;
+    private Double mMag;
 
     // The city in which the earthquake took place
     private String mPlace;
@@ -32,7 +32,7 @@ public class Quakes {
      * @param place to assign where the earthquake took place,
      * and @param date to assign the day that the earthquake took place.
      */
-    public Quakes(String mag, String place, Long date) {
+    public Quakes(Double mag, String place, Long date) {
         mMag = mag;
         mPlace = place;
         mDate = date;
@@ -46,7 +46,7 @@ public class Quakes {
     /**
      *  Gets the magnitude of the earthquake.
      */
-    public String getmMag() { return mMag; }
+    public Double getmMag() { return mMag; }
 
     /**
      *  Gets the city in which the earthquake took place.
