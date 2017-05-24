@@ -118,7 +118,7 @@ public class QuakeAdapter extends ArrayAdapter<Quakes> {
             placeSubString = rawPlaceString;
         }
 
-        
+
         /*
                 SETTING TEXTVIEWS
          */
@@ -139,13 +139,15 @@ public class QuakeAdapter extends ArrayAdapter<Quakes> {
         TextView placeTextView = (TextView) listItemView.findViewById(R.id.place_text_view);
         // Get the earthquake's place from the currentQuakes object and set this text on
         // the place TextView.
-        placeTextView.setText(currentQuakes.getmPlace());
+        placeTextView.setText(placeSubString);
 
-        // TODO: Near TextView
+        // Near TextView
 
-        // TODO: Find the TextView in the list_item.xml layout with the ID near_text_view.
-        // TODO: Get the earthquake's near data from the formatting variable and set this text
-        // TODO: on the near TextView.
+        // Find the TextView in the list_item.xml layout with the ID near_text_view.
+        TextView nearTextView = (TextView) listItemView.findViewById(R.id.near_text_view);
+        // Get the earthquake's near data from the formatting variable and set this text
+        // on the near TextView.
+        nearTextView.setText(nearSubString);
 
         // Date TextView
 
