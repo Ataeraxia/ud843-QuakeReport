@@ -21,6 +21,9 @@ public class Quakes {
     // The date in format MonthAbbreviation day, year
     private Long mDate;
 
+    // The url where the quake report is found
+    private String mUrl;
+
 
     /*
      *  CONSTRUCTORS
@@ -30,12 +33,14 @@ public class Quakes {
      * Constructor for the com.example.android.quakereport.Quakes class.
      * Requires @param mag to assign a magnitude,
      * @param place to assign where the earthquake took place,
-     * and @param date to assign the day that the earthquake took place.
+     * @param date to assign the day that the earthquake took place, and @param url
+     * to assign the url associated with the quake.
      */
-    public Quakes(Double mag, String place, Long date) {
+    public Quakes(Double mag, String place, Long date, String url) {
         mMag = mag;
         mPlace = place;
         mDate = date;
+        mUrl = url;
     }
 
 
@@ -57,5 +62,10 @@ public class Quakes {
      *  Gets the date that the earthquake took place.
      */
     public Long getmDate() { return mDate; }
+
+    /**
+     *  Gets the url that is associated with the earthquake.
+     */
+    public String getmUrl() { return mUrl; }
 
 }

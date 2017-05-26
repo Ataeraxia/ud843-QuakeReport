@@ -61,8 +61,9 @@ public final class QueryUtils {
                 Double mag = currentProperties.getDouble("mag");
                 String place = currentProperties.getString("place");
                 Long time = currentProperties.getLong("time");
+                String url = currentProperties.getString("url");
 
-                Quakes quake = new Quakes(mag, place, time);
+                Quakes quake = new Quakes(mag, place, time, url);
                 earthquakes.add(quake);
             }
         } catch (JSONException e) {
