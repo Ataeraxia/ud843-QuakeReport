@@ -1,6 +1,8 @@
 package com.example.android.quakereport;
 
 import android.content.Context;
+import android.graphics.drawable.GradientDrawable;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +28,7 @@ public class QuakeAdapter extends ArrayAdapter<Quakes> {
             VARIABLES
      */
 
+    Double doubMag;
 
     /*
             CONSTRUCTORS
@@ -65,6 +68,13 @@ public class QuakeAdapter extends ArrayAdapter<Quakes> {
         // Get the {@link com.example.android.quakereport.Quakes} object located at this position in the list
         Quakes currentQuakes = getItem(position);
 
+        // Set up variables now that we have context
+
+        // Magnitude of the earthquake, found in Quakes.java
+        doubMag = currentQuakes.getmMag();
+        // Log the Double for bug testing
+        Log.d("QuakeAdapter", "Double doubMag: " + doubMag + " SUPERCAT");
+
 
         /*
                 FORMATTING
@@ -74,10 +84,7 @@ public class QuakeAdapter extends ArrayAdapter<Quakes> {
 
         // Create a new DecimalFormatter that will format the magnitude
         DecimalFormat decFormat = new DecimalFormat("0.0");
-        // Create a Double variable that will be formatted by the formatter
-        Double doubMag = currentQuakes.getmMag();
-        // Log the Double for bug testing
-        Log.d("QuakeAdapter", "Double doubMag: " + doubMag + " SUPERCAT");
+
         // Create a String variable that will hold the formatted Double variable
         String formatMag = decFormat.format(doubMag);
 
@@ -145,6 +152,13 @@ public class QuakeAdapter extends ArrayAdapter<Quakes> {
         magTextView.setText(formatMag);
         // Log that getmMag did not return null
         Log.d("QuakeAdapter", "magTextView: " + magTextView.toString() + "SUPERCAT");
+        // Set the proper background color on the magnitude circle.
+        // Fetch the background from the TextView, which is a GradientDrawable.
+        GradientDrawable magnitudeCircle = (GradientDrawable) magTextView.getBackground();
+        // Get the appropriate background color based on the current earthquake magnitude
+        int magnitudeColor = getMagnitudeColor(doubMag);
+        // Set the color on the magnitude circle
+        magnitudeCircle.setColor(magnitudeColor);
 
         // Place TextView
 
@@ -209,7 +223,42 @@ public class QuakeAdapter extends ArrayAdapter<Quakes> {
         return dateFormatter.format(pQuakeTime);
     }
 
-    // Create a DecimalFormatter.
+    private int getMagnitudeColor(Double magnitude) {
+        int magColor;
+        int intMag = (int) Math.floor(magnitude);
 
+        switch(intMag) {
+            case 10:
+                magColor = R.color.magnitude10plus;
+                break;
+            case 9:
+                magColor = R.color.magnitude9;
+                break;
+            case 8:
+                magColor = R.color.magnitude8;
+                break;
+            case 7:
+                magColor = R.color.magnitude7;
+                break;
+            case 6:
+                magColor = R.color.magnitude6;
+                break;
+            case 5:
+                magColor = R.color.magnitude5;
+                break;
+            case 4:
+                magColor = R.color.magnitude4;
+                break;
+            case 3:
+                magColor = R.color.magnitude3;
+                break;
+            case 2:
+                magColor = R.color.magnitude2;
+                break;
+            default:
+                magColor = R.color.magnitude1;
+                break;
+        }
+        return ContextCompat.getColor(getContext(), magColor);    }
 
 }
