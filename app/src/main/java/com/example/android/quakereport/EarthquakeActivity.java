@@ -15,12 +15,12 @@
  */
 package com.example.android.quakereport;
 
+import android.app.LoaderManager;
 import android.content.Intent;
 import android.content.Loader;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.LoaderManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -32,29 +32,53 @@ import java.util.List;
 
 public class EarthquakeActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Quakes>> {
 
+    private static final int EARTHQUAKE_LOADER_ID = 1;
     public static final String LOG_TAG = EarthquakeActivity.class.getName();
+
+    private QuakeAdapter mAdapter;
     private static final String USGSQuery = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&endtime=2014-01-02";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Start the activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.earthquake_activity);
 
+        // Find a reference to the {@link ListView} in the layout
+        ListView quakeListView = (ListView) findViewById(R.id.list);
+
+        // Init the QuakeAdapter
+        mAdapter = new QuakeAdapter(this, new ArrayList<Quakes>());
+
+        // Populate the ListView with the QuakeAdapter's ArrayList
+        quakeListView.setAdapter(mAdapter);
+
+        getLoaderManager().initLoader(0, null, this);
+
         quakesASyncTask fetchTask = new quakesASyncTask();
         fetchTask.execute(USGSQuery);
+
+        // Set an item click listener on the ListView, which sends an intent to a web browser
+        // to open a website with more information about the selected earthquake.
+        quakeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                // Find the current earthquake that was clicked on
+                Quakes currentQuake = mAdapter.getItem(position);
+
+                // Convert the String URL into a URI object (to pass into the Intent constructor)
+                Uri quakeUri = Uri.parse(currentQuake.getUrl());
+
+                // Create a new intent to view the earthquake URI
+                Intent websiteIntent = new Intent(Intent.ACTION_VIEW, earthquakeUri);
+
+                // Send the intent to launch a new activity
+                startActivity(websiteIntent);
+            }
+        });
     }
 
     private void updateUI(ArrayList<Quakes> quakes) {
-        // Create a new {@link ArrayAdapter} of earthquakes
-        final QuakeAdapter adapter = new QuakeAdapter(
-                this, quakes);
-
-        // Find a reference to the {@link ListView} in the layout
-        ListView earthquakeListView = (ListView) findViewById(R.id.list);
-
-        // Set the adapter on the {@link ListView}
-        // so the list can be populated in the user interface
-        earthquakeListView.setAdapter(adapter);
 
         // Set an onItemClickListener on the earthquakeListView so we can open urls
         earthquakeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -76,12 +100,20 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
 
     @Override
     public Loader<List<Quakes>> onCreateLoader(int i, Bundle bundle) {
-        return new QuakesLoader(EarthquakeActivity.this);
+        return new QuakesLoader(EarthquakeActivity.this, USGSQuery);
     }
 
     @Override
     public void onLoadFinished(Loader<List<Quakes>> loader, List<Quakes> earthquakes) {
-        // TODO: Update the UI with the result
+        // Clear the adapter of previous earthquake data
+        adapter.clear();
+
+        // If there is a valid list of {@link Earthquake}s, then add them to the adapter's
+        // data set. This will trigger the ListView to update.
+        if (earthquakes != null && !earthquakes.isEmpty()) {
+            mAdapter.addAll(earthquakes);
+
+        }
     }
 
     @Override
