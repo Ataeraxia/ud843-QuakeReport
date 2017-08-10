@@ -40,6 +40,7 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         // Start the activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.earthquake_activity);
@@ -47,7 +48,7 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
         // Find a reference to the {@link ListView} in the layout
         ListView quakeListView = (ListView) findViewById(R.id.list);
 
-        // Init the QuakeAdapter
+        // Init the QuakeAdapter (may cause nullpointerexception?)
         mAdapter = new QuakeAdapter(this, new ArrayList<Quakes>());
 
         // Populate the ListView with the QuakeAdapter's ArrayList
@@ -67,10 +68,10 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
                 Quakes currentQuake = mAdapter.getItem(position);
 
                 // Convert the String URL into a URI object (to pass into the Intent constructor)
-                Uri quakeUri = Uri.parse(currentQuake.getUrl());
+                Uri quakeUri = Uri.parse(currentQuake.getmUrl());
 
                 // Create a new intent to view the earthquake URI
-                Intent websiteIntent = new Intent(Intent.ACTION_VIEW, earthquakeUri);
+                Intent websiteIntent = new Intent(Intent.ACTION_VIEW, quakeUri);
 
                 // Send the intent to launch a new activity
                 startActivity(websiteIntent);
@@ -80,15 +81,18 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
 
     private void updateUI(ArrayList<Quakes> quakes) {
 
+        // Find a reference to the {@link ListView} in the layout
+        ListView quakeListView = (ListView) findViewById(R.id.list);
+
         // Set an onItemClickListener on the earthquakeListView so we can open urls
-        earthquakeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        quakeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 // Log the click for debugging
                 Log.v("MainActivity", "Clicky clicky" + " SUPERCAT");
 
                 // Find the current earthquake that was clicked on
-                Quakes currentQuake = adapter.getItem(position);
+                Quakes currentQuake = mAdapter.getItem(position);
 
                 // Open the url associated with the earthquake that was clicked on
                 Intent urlIntent = new Intent(Intent.ACTION_VIEW);
@@ -106,7 +110,7 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
     @Override
     public void onLoadFinished(Loader<List<Quakes>> loader, List<Quakes> earthquakes) {
         // Clear the adapter of previous earthquake data
-        adapter.clear();
+        mAdapter.clear();
 
         // If there is a valid list of {@link Earthquake}s, then add them to the adapter's
         // data set. This will trigger the ListView to update.
