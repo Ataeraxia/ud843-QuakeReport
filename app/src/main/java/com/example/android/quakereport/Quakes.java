@@ -1,6 +1,8 @@
+package com.example.android.quakereport;
+
 /**
  * Created by Jessica on 2017-05-12.
- * Quakes is a class that stores the magnitude, location and date of an earthquake.
+ * com.example.android.quakereport.Quakes is a class that stores the magnitude, location and date of an earthquake.
  */
 
 public class Quakes {
@@ -11,13 +13,16 @@ public class Quakes {
 
     // The magnitude of the earthquake (must be a String since we haven't learnt floats
     //     and it is a decimal)
-    private String mMag;
+    private Double mMag;
 
     // The city in which the earthquake took place
     private String mPlace;
 
     // The date in format MonthAbbreviation day, year
-    private String mDate;
+    private Long mDate;
+
+    // The url where the quake report is found
+    private String mUrl;
 
 
     /*
@@ -25,15 +30,17 @@ public class Quakes {
      */
 
     /**
-     * Constructor for the Quakes class.
+     * Constructor for the com.example.android.quakereport.Quakes class.
      * Requires @param mag to assign a magnitude,
      * @param place to assign where the earthquake took place,
-     * and @param date to assign the day that the earthquake took place.
+     * @param date to assign the day that the earthquake took place, and @param url
+     * to assign the url associated with the quake.
      */
-    public Quakes(String mag, String place, String date) {
+    public Quakes(Double mag, String place, Long date, String url) {
         mMag = mag;
         mPlace = place;
         mDate = date;
+        mUrl = url;
     }
 
 
@@ -44,7 +51,7 @@ public class Quakes {
     /**
      *  Gets the magnitude of the earthquake.
      */
-    public String getmMag() { return mMag; }
+    public Double getmMag() { return mMag; }
 
     /**
      *  Gets the city in which the earthquake took place.
@@ -54,6 +61,11 @@ public class Quakes {
     /**
      *  Gets the date that the earthquake took place.
      */
-    public String getmDate() { return mDate; }
+    public Long getmDate() { return mDate; }
+
+    /**
+     *  Gets the url that is associated with the earthquake.
+     */
+    public String getmUrl() { return mUrl; }
 
 }
